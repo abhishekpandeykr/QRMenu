@@ -17,7 +17,7 @@ const MainLayout = ({ children }) => {
     <>
       <Navbar bg="light" variant="light" className="mb-4">
         <Navbar.Brand href="/">QR Menu</Navbar.Brand>
-        <Nav className="flex-grow-1 justify-content-center">
+        <Nav>
           <Nav.Link onClick={gotoPlaces}>Places</Nav.Link>
         </Nav>
         <Nav className="flex-grow-1 justify-content-end">

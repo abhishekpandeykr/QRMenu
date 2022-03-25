@@ -1,16 +1,27 @@
-import React, { useState } from "react";
-import { Row, Col, Form, Button, Card } from "react-bootstrap";
+import React, { useState, useEffect, useContext } from "react";
+import { Row, Col, Form, Button, Card, Spinner } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { signIn } from "../apis";
+import AuthContext from "../contexts/AuthContext";
 import MainLayout from "../layout/MainLayout";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const auth = useContext(AuthContext);
+
+  useEffect(() => {
+    if (auth.token) {
+      navigate("/places");
+    }
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
-    signIn(username, password);
+    auth.signIn(username, password, () => {
+      navigate("/places");
+    });
   };
   return (
     <MainLayout>
@@ -44,8 +55,20 @@ const Login = () => {
                   variant="standard"
                   className="mt-2"
                   onClick={handleSubmit}
+                  disabled={auth.loading}
                 >
-                  Login
+                  {auth.loading ? (
+                    <Spinner
+                      variant="standard"
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                  ) : (
+                    "Sign In"
+                  )}
                 </Button>
               </div>
             </Card.Body>

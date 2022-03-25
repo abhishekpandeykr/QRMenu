@@ -37,6 +37,7 @@ export function signIn(username, password) {
     .then((jsonRes) => {
       //   call api successfully
       toast(JSON.stringify(jsonRes), { type: "success" });
+      return jsonRes;
     })
     .catch((err) => {
       toast(err.message, { type: "error" });

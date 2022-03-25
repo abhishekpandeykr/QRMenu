@@ -15,7 +15,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/places" element={<PrivateRoute />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/places" element={<Places />} />
+          </Route>
         </Routes>
       </BrowserRouter>
       <ToastContainer />

@@ -1,16 +1,18 @@
 import { toast } from "react-toastify";
 
-export function signIn(username, password) {
-  return fetch("/auth/token/login/", {
-    method: "POST",
+function request(path, { data = null, token = null, method = "GET" }) {
+  return fetch(path, {
+    method,
     headers: {
+      Authorization: token ? `Token ${token}` : "",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ username, password }),
+    body: method !== "GET" || method !== "DELETE" ? JSON.stringify(data) : null,
   })
     .then((res) => {
       console.log(res);
       if (res.ok) {
+        if (method === "DELETE") return true;
         return res.json();
       }
       return res

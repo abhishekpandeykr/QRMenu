@@ -1,14 +1,18 @@
 import { toast } from "react-toastify";
 
 function request(path, { data = null, token = null, method = "GET" }) {
-  return fetch(path, {
+  const body = {
     method,
     headers: {
       Authorization: token ? `Token ${token}` : "",
       "Content-Type": "application/json",
     },
-    body: method !== "GET" || method !== "DELETE" ? JSON.stringify(data) : null,
-  })
+    body: JSON.stringify(data),
+  };
+  if (method === "GET" || method === "DELETE") {
+    delete body.body;
+  }
+  return fetch(path, body)
     .then((res) => {
       console.log(res);
       if (res.ok) {
@@ -60,5 +64,11 @@ export function register(username, password) {
   return request("/auth/users/", {
     data: { username, password },
     method: "POST",
+  });
+}
+
+export function fetchPlaces(token) {
+  return request("/api/places", {
+    token,
   });
 }

@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { signIn as signInApi } from "../apis";
+import { signIn as signInApi, register as registerApi } from "../apis";
 
 const AuthContext = createContext();
 
@@ -24,11 +24,21 @@ export const AuthProvider = ({ children }) => {
     setToken(null);
   };
 
+  const register = async (username, password, cb) => {
+    setLoading(true);
+    const response = await registerApi(username, password);
+    if (response && response.id) {
+      cb();
+    }
+    setLoading(false);
+  };
+
   const value = {
     token,
     loading,
     signIn,
     signOut,
+    register,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

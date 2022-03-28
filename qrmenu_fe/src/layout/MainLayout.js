@@ -19,8 +19,12 @@ const MainLayout = ({ children }) => {
     navigate("/places");
   };
 
-  const getLoginOrLogoutButton = (btnText, clickHandler) => (
-    <Nav className="flex-grow-1 justify-content-end">
+  const onSignUp = () => {
+    navigate("/register");
+  };
+
+  const getLoginOrLogoutButton = (btnText, clickHandler, key = "") => (
+    <Nav className="flex-grow-1 justify-content-end" key={key}>
       <Nav.Link onClick={clickHandler}>{btnText}</Nav.Link>
     </Nav>
   );
@@ -34,7 +38,10 @@ const MainLayout = ({ children }) => {
         </Nav>
         {auth.token
           ? getLoginOrLogoutButton("Sign Out", onSignOut)
-          : getLoginOrLogoutButton("Sign In", signIn)}
+          : [
+              getLoginOrLogoutButton("Register", onSignUp, 1),
+              getLoginOrLogoutButton("Sign In", signIn, 2),
+            ]}
       </Navbar>
       <Container>{children}</Container>
     </>

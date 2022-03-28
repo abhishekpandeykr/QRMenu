@@ -19,11 +19,13 @@ function request(path, { data = null, token = null, method = "GET" }) {
         .json()
         .then((err) => {
           //   handle json error here send by server
-          if (err.status === 400) {
-            const errors = Object.keys(err.errors).map(
-              (key) => err.errors[key]
-            );
-            toast.error(err.message);
+          if (res.status === 400) {
+            console.log(res.status, "Status", err);
+            const errors = Object.keys(err).map((key) => {
+              console.log(err[key]);
+              return err[key].join(",");
+            });
+            throw new Error(errors[0]);
           }
           throw new Error(err.message);
         })
@@ -42,6 +44,21 @@ function request(path, { data = null, token = null, method = "GET" }) {
       return jsonRes;
     })
     .catch((err) => {
+      console.log("Called", err.message);
       toast(err.message, { type: "error" });
     });
+}
+
+export function signIn(username, password) {
+  return request("/auth/token/login/", {
+    data: { username, password },
+    method: "POST",
+  });
+}
+
+export function register(username, password) {
+  return request("/auth/users/", {
+    data: { username, password },
+    method: "POST",
+  });
 }

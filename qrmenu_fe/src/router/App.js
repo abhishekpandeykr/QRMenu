@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import Places from "../pages/Places";
 import { AuthProvider } from "../contexts/AuthContext";
 import PrivateRoute from "./PrivateRoute";
+import Register from "../pages/Register";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route element={<PrivateRoute />}>
             <Route path="/places" element={<Places />} />
           </Route>

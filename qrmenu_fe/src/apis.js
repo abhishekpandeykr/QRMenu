@@ -72,3 +72,11 @@ export function fetchPlaces(token) {
     token,
   });
 }
+
+export function addPlaces(data, token) {
+  return request("/api/places", {
+    data,
+    token,
+    method: "POST",
+  });
+}

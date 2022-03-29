@@ -80,3 +80,17 @@ export function addPlaces(data, token) {
     method: "POST",
   });
 }
+
+export function uploadImage(image) {
+  const formData = new FormData();
+  formData.append("file", image);
+  formData.append("upload_preset", "qr_menu_photos");
+
+  return fetch(
+    `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_USERNAME}/image/upload`,
+    {
+      method: "POST",
+      body: formData,
+    }
+  ).then((res) => res.json());
+}

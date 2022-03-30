@@ -23,4 +23,11 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
     path('api/places', view=views.PlaceListView.as_view()),
+    path('api/places/<pk>', view=views.PlaceDetail.as_view()),
+
+    path('api/categories', view=views.CategoryList.as_view()),
+    path('api/categories/<pk>', view=views.CategoryDetail.as_view()),
+
+    path('api/menu-items', view=views.MenuItemList.as_view()),
+    path('api/menu-items/<pk>', view=views.MenuItemDetail.as_view()),
 ]

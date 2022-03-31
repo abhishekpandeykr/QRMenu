@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 from .serializers import CategorySerializer, MenuItemSerializer, PlaceSerializer
 from .models import Category, Place, MenuItem
+from .permissions import IsOwnerOrReadOnly, IsPlaceOwnerOrReadOnly
 
 # Create your views here.
 class PlaceListView(ListCreateAPIView):
@@ -15,23 +16,29 @@ class PlaceListView(ListCreateAPIView):
 
 
 class PlaceDetail(RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsOwnerOrReadOnly]
     serializer_class = PlaceSerializer
-    query_set = Place.objects.all()
+    def get_queryset(self):
+        return Place.objects.all()
 
 
 class CategoryList(CreateAPIView):
+    permission_classes = [IsPlaceOwnerOrReadOnly]
     serializer_class = CategorySerializer
 
 
 class CategoryDetail(UpdateAPIView, DestroyAPIView):
+    permission_classes = [IsPlaceOwnerOrReadOnly]
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
 
 
 class MenuItemList(CreateAPIView):
+    permission_classes = [IsPlaceOwnerOrReadOnly]
     serializer_class = MenuItemSerializer
 
 
 class MenuItemDetail(UpdateAPIView, DestroyAPIView):
+    permission_classes = [IsPlaceOwnerOrReadOnly]
     serializer_class = MenuItemSerializer
     queryset = MenuItem.objects.all()

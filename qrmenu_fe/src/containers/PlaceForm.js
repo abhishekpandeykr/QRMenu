@@ -20,7 +20,7 @@ const PlaceForm = ({ onDone }) => {
   };
   return (
     <div>
-      <h4 className="text-center">Place</h4>
+      <h4 className="text-center">Add Place:</h4>
 
       <Form.Group>
         <Form.Label>Name:</Form.Label>

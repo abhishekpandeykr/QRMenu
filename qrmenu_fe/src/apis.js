@@ -98,3 +98,7 @@ export function uploadImage(image) {
     }
   ).then((res) => res.json());
 }
+
+export function addCategory(data, token) {
+  return request("/api/categories", { data, token, method: "POST" });
+}

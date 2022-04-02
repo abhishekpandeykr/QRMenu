@@ -19,7 +19,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class PlaceDetailSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True, read_only=True)
     class Meta:
-        model = Category
+        model = Place
         fields = ['id', 'name', 'image', 'number_of_tables', 'categories']
 
 

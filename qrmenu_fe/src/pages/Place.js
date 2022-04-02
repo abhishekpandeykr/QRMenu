@@ -2,10 +2,19 @@ import React, { useContext, useEffect, useState } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import { IoMdArrowBack } from "react-icons/io";
 import { useParams, useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 import { fetchPlaceById } from "../apis";
+import MenuItemForm from "../containers/MenuItemForm";
 import AuthContext from "../contexts/AuthContext";
 import MainLayout from "../layout/MainLayout";
+
+const Panel = styled.div`
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.05);
+`;
 
 export function Place() {
   const [place, setPlace] = useState({});
@@ -21,6 +30,7 @@ export function Place() {
   const onFetchPlace = async () => {
     const json = await fetchPlaceById(params.id, auth.token);
     if (json) {
+      console.log("json is", json);
       setPlace(json);
     }
   };
@@ -41,6 +51,11 @@ export function Place() {
               <h3 className="mb-0 ml-2 mr-2">{place.name}</h3>
             </div>
           </div>
+        </Col>
+        <Col md={4}>
+          <Panel>
+            <MenuItemForm place={place} onDone={onFetchPlace} />
+          </Panel>
         </Col>
       </Row>
     </MainLayout>

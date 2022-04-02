@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
-from .serializers import CategorySerializer, MenuItemSerializer, PlaceSerializer
+from .serializers import CategorySerializer, MenuItemSerializer, PlaceSerializer, PlaceDetailSerializer
 from .models import Category, Place, MenuItem
 from .permissions import IsOwnerOrReadOnly, IsPlaceOwnerOrReadOnly
 
@@ -17,7 +17,7 @@ class PlaceListView(ListCreateAPIView):
 
 class PlaceDetail(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
-    serializer_class = PlaceSerializer
+    serializer_class = PlaceDetailSerializer
     def get_queryset(self):
         return Place.objects.all()
 

@@ -102,3 +102,7 @@ export function uploadImage(image) {
 export function addCategory(data, token) {
   return request("/api/categories", { data, token, method: "POST" });
 }
+
+export function addMenuItems(data, token) {
+  return request("/api/menu-items", { data, token, method: "POST" });
+}

@@ -81,6 +81,10 @@ export function addPlaces(data, token) {
   });
 }
 
+export function fetchPlaceById(id, token) {
+  return request(`/api/places/${id}`, { token });
+}
+
 export function uploadImage(image) {
   const formData = new FormData();
   formData.append("file", image);

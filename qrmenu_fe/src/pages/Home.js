@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Container, Row, Col, Image } from "react-bootstrap";
 import MainLayout from "../layout/MainLayout";
+import { Place } from "./Place";
 
 const Home = () => {
   return (

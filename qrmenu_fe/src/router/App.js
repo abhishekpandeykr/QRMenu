@@ -8,6 +8,7 @@ import Places from "../pages/Places";
 import { AuthProvider } from "../contexts/AuthContext";
 import PrivateRoute from "./PrivateRoute";
 import Register from "../pages/Register";
+import { Place } from "../pages/Place";
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route element={<PrivateRoute />}>
             <Route path="/places" element={<Places />} />
+          </Route>
+          <Route element={<PrivateRoute />}>
+            <Route path="/places/:id" element={<Place />} />
           </Route>
         </Routes>
       </BrowserRouter>

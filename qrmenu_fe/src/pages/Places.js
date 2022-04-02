@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Row, Col, Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { fetchPlaces } from "../apis";
 import PlaceForm from "../containers/PlaceForm";
@@ -42,6 +43,7 @@ const Place = styled.div`
 
 const Places = () => {
   const context = useContext(AuthContext);
+  const navigate = useNavigate();
   const [places, setPlaces] = useState([]);
   const [show, setShow] = useState(false);
 
@@ -76,7 +78,7 @@ const Places = () => {
       <Row>
         {places.map((place, index) => (
           <Col key={place.id} lg={4}>
-            <Place>
+            <Place onClick={() => navigate(`/places/${place.id}`)}>
               <div style={{ backgroundImage: `url(${place.image})` }}></div>
               <p>{place.name}</p>
             </Place>

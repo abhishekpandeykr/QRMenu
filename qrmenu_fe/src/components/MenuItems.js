@@ -9,7 +9,6 @@ const Container = styled.div`
   margin-bottom: 30px;
   bax-shadow: 1px 1px 8px rgba(0, 0, 0, 0.2);
   display: flex;
-  overflow-x: hidden;
   opacity: ${({ active }) => (active ? 1 : 0.6)};
   > div:first-child {
     width: 40%;

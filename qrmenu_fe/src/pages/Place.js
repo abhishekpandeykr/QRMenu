@@ -95,7 +95,10 @@ export function Place() {
           <h4 className="text-center">Menu Item</h4>
           <MenuItemForm
             place={place}
-            onDone={() => hideModal()}
+            onDone={() => {
+              onFetchPlace();
+              hideModal();
+            }}
             item={selectedItem}
           />
         </Modal.Body>

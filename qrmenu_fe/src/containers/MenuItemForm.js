@@ -3,7 +3,7 @@ import { Button, Overlay, Form, Popover, FormGroup } from "react-bootstrap";
 import { RiPlayListAddFill } from "react-icons/ri";
 import { toast } from "react-toastify";
 
-import { addCategory, addMenuItems } from "../apis";
+import { addCategory, addMenuItems, updateMenuItem } from "../apis";
 import AuthContext from "../contexts/AuthContext";
 import ImageDropZone from "./ImageDropzone";
 
@@ -54,6 +54,31 @@ export default function MenuItemForm({ place, onDone, item = {} }) {
     if (json) {
       console.log("json", json);
       toast(`Menu Item ${json.name} was created`, { type: "success" });
+      setCategory("");
+      setName("");
+      setImage("");
+      setAvailable(true);
+      setDescription("");
+      onDone();
+    }
+  };
+
+  const onUpdateMenuItem = async () => {
+    const json = await updateMenuItem(
+      item.id,
+      {
+        place: place.id,
+        category,
+        name,
+        price,
+        description,
+        image,
+        is_available: isAvailable,
+      },
+      auth.token
+    );
+    if (json) {
+      toast(`Menu Item ${json.name} was updated`, { type: "success" });
       setCategory("");
       setName("");
       setImage("");
@@ -160,8 +185,12 @@ export default function MenuItemForm({ place, onDone, item = {} }) {
         />
       </Form.Group>
 
-      <Button variant="standard" block onClick={onAddMenuItem}>
-        Add Menu Item
+      <Button
+        variant="standard"
+        block
+        onClick={item.id ? onUpdateMenuItem : onAddMenuItem}
+      >
+        {item.id ? "Update" : "+ Add"} Menu Item
       </Button>
     </div>
   );

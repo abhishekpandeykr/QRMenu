@@ -1,6 +1,7 @@
 import React from "react";
-import { Col } from "react-bootstrap";
+import { Col, Button } from "react-bootstrap";
 import styled from "styled-components";
+import { BiEdit } from "react-icons/bi";
 
 const Container = styled.div`
   border-radius: 5px;
@@ -22,15 +23,24 @@ const Container = styled.div`
   }
 `;
 
-const MenuItem = ({ item }) => {
+const MenuItem = ({ item, onEdit }) => {
   return (
     <Container active={item.is_available}>
       <Col xs={5} style={{ backgroundImage: `url(${item.image})` }} />
-      <Col xs={7} className="d-flex flex-column justify-content-between w-100">
+      <Col xs={7} className="d-flex flex-column justify-content-between">
         <div>
-          <h4 className="mb-2">
-            <b>{item.name}</b>
-          </h4>
+          <div className="d-flex justify-content-between align-items-center mb-2">
+            <h4 className="mb-0">
+              <b>{item.name}</b>
+            </h4>
+            <div>
+              {onEdit && (
+                <Button variant="link" onClick={onEdit}>
+                  <BiEdit size={25} />
+                </Button>
+              )}
+            </div>
+          </div>
           <p className="mb-4">{item.description}</p>
         </div>
         <div className="d-flex justify-content-between align-items-end">

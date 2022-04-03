@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Modal } from "react-bootstrap";
 import { IoMdArrowBack } from "react-icons/io";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -19,6 +19,8 @@ const Panel = styled.div`
 
 export function Place() {
   const [place, setPlace] = useState({});
+  const [menuItemFormShow, setMenuItemFormShow] = useState(false);
+  const [selectedItem, setSelectedItem] = useState({});
 
   const auth = useContext(AuthContext);
   const params = useParams();
@@ -34,6 +36,14 @@ export function Place() {
       console.log("json is", json);
       setPlace(json);
     }
+  };
+
+  const showModal = () => {
+    setMenuItemFormShow(true);
+  };
+
+  const hideModal = () => {
+    setMenuItemFormShow(false);
   };
 
   useEffect(() => {
@@ -67,12 +77,29 @@ export function Place() {
                 <b>{category.name}</b>
               </h4>
               {category.menu_items?.map((item) => (
-                <MenuItem key={item.id} item={item} />
+                <MenuItem
+                  key={item.id}
+                  item={item}
+                  onEdit={() => {
+                    showModal();
+                    setSelectedItem(item);
+                  }}
+                />
               ))}
             </div>
           ))}
         </Col>
       </Row>
+      <Modal show={menuItemFormShow} onHide={hideModal} centered>
+        <Modal.Body>
+          <h4 className="text-center">Menu Item</h4>
+          <MenuItemForm
+            place={place}
+            onDone={() => hideModal()}
+            item={selectedItem}
+          />
+        </Modal.Body>
+      </Modal>
     </MainLayout>
   );
 }

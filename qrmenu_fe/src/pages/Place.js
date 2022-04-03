@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Row, Col, Button, Modal } from "react-bootstrap";
 import { IoMdArrowBack } from "react-icons/io";
+import { AiOutlineQrcode } from "react-icons/ai";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -9,6 +10,7 @@ import MenuItem from "../components/MenuItems";
 import MenuItemForm from "../containers/MenuItemForm";
 import AuthContext from "../contexts/AuthContext";
 import MainLayout from "../layout/MainLayout";
+import QRCodeModel from "../components/QRCodeModel";
 
 const Panel = styled.div`
   background-color: white;
@@ -21,6 +23,7 @@ export function Place() {
   const [place, setPlace] = useState({});
   const [menuItemFormShow, setMenuItemFormShow] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
+  const [qrCode, setQRCode] = useState(false);
 
   const auth = useContext(AuthContext);
   const params = useParams();
@@ -46,6 +49,9 @@ export function Place() {
     setMenuItemFormShow(false);
   };
 
+  const showQRCodeModel = () => setQRCode(true);
+  const hideQRCodeModel = () => setQRCode(false);
+
   useEffect(() => {
     onFetchPlace();
   }, []);
@@ -61,6 +67,9 @@ export function Place() {
               </Button>
               <h3 className="mb-0 ml-2 mr-2">{place.name}</h3>
             </div>
+            <Button variant="link" onClick={showQRCodeModel}>
+              <AiOutlineQrcode size={35} color="black" />
+            </Button>
           </div>
         </Col>
       </Row>
@@ -103,6 +112,12 @@ export function Place() {
           />
         </Modal.Body>
       </Modal>
+      <QRCodeModel
+        show={qrCode}
+        onHide={hideQRCodeModel}
+        place={place}
+        centered
+      />
     </MainLayout>
   );
 }

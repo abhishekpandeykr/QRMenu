@@ -61,11 +61,15 @@ export function Place() {
       <Row>
         <Col lg={12}>
           <div className="mb-4">
-            <div className="d-flex align-items-center">
+            <div className="d-flex justify-content-between align-items-center mb-4">
               <Button variant="link" onClick={onBack}>
                 <IoMdArrowBack size={35} color="black" />
               </Button>
               <h3 className="mb-0 ml-2 mr-2">{place.name}</h3>
+              <Button variant="link" onClick={onBack}>
+                Delete
+                {/* <IoMdArrowBack size={35} color="black" /> */}
+              </Button>
             </div>
             <Button variant="link" onClick={showQRCodeModel}>
               <AiOutlineQrcode size={35} color="black" />

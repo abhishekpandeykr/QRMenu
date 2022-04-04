@@ -110,3 +110,7 @@ export function addMenuItems(data, token) {
 export function updateMenuItem(id, data, token) {
   return request(`/api/menu-items/${id}`, { data, token, method: "PATCH" });
 }
+
+export function updatePlace(id, data, token) {
+  return request(`/api/places/${id}`, { data, token, method: "PATCH" });
+}

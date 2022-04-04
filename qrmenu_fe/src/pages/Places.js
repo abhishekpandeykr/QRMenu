@@ -80,7 +80,9 @@ const Places = () => {
           <Col key={place.id} lg={4}>
             <Place onClick={() => navigate(`/places/${place.id}`)}>
               <div style={{ backgroundImage: `url(${place.image})` }}></div>
-              <p>{place.name}</p>
+              <p>
+                <b>{place.name}</b>
+              </p>
             </Place>
           </Col>
         ))}

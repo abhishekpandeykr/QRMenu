@@ -1,11 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Row, Col, Button, Modal } from "react-bootstrap";
 import { IoMdArrowBack } from "react-icons/io";
-import { AiOutlineQrcode } from "react-icons/ai";
+import { AiOutlineQrcode, AiOutlineDelete } from "react-icons/ai";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import { fetchPlaceById } from "../apis";
+import {
+  fetchPlaceById,
+  deleteCategory,
+  deleteMenuItem,
+  deletePlace,
+} from "../apis";
 import MenuItem from "../components/MenuItems";
 import MenuItemForm from "../containers/MenuItemForm";
 import AuthContext from "../contexts/AuthContext";
@@ -52,6 +57,27 @@ export function Place() {
   const showQRCodeModel = () => setQRCode(true);
   const hideQRCodeModel = () => setQRCode(false);
 
+  const onDeletePlace = () => {
+    const confirm = window.confirm("Are You Sure You want to Delete this?");
+    if (confirm) {
+      deletePlace(params.id, auth.token).then(onBack);
+    }
+  };
+
+  const onDeleteCategory = (id) => {
+    const confirm = window.confirm("Are You Sure You want to Delete this?");
+    if (confirm) {
+      deleteCategory(id, auth.token).then(onFetchPlace);
+    }
+  };
+
+  const onDeleteMenuItem = (menuItemId) => {
+    const confirm = window.confirm("Are You Sure You want to Delete this?");
+    if (confirm) {
+      deleteMenuItem(menuItemId, auth.token).then(onFetchPlace);
+    }
+  };
+
   useEffect(() => {
     onFetchPlace();
   }, []);
@@ -66,9 +92,8 @@ export function Place() {
                 <IoMdArrowBack size={35} color="black" />
               </Button>
               <h3 className="mb-0 ml-2 mr-2">{place.name}</h3>
-              <Button variant="link" onClick={onBack}>
-                Delete
-                {/* <IoMdArrowBack size={35} color="black" /> */}
+              <Button variant="link" onClick={onDeletePlace}>
+                <AiOutlineDelete size={35} color="red" />
               </Button>
             </div>
             <Button variant="link" onClick={showQRCodeModel}>
@@ -86,9 +111,17 @@ export function Place() {
         <Col md={8}>
           {place?.categories?.map((category) => (
             <div key={category.id} className="mb-5">
-              <h4 className="mb-0 mr-2 mb-4">
-                <b>{category.name}</b>
-              </h4>
+              <div className="d-flex align-items-center mb-4">
+                <h4 className="mb-0 mr-2">
+                  <b>{category.name}</b>
+                </h4>
+                <Button
+                  variant="link"
+                  onClick={() => onDeleteCategory(category.id)}
+                >
+                  <AiOutlineDelete size={35} color="red" />
+                </Button>
+              </div>
               {category.menu_items?.map((item) => (
                 <MenuItem
                   key={item.id}
@@ -97,6 +130,7 @@ export function Place() {
                     showModal();
                     setSelectedItem(item);
                   }}
+                  onDelete={() => onDeleteMenuItem(item.id)}
                 />
               ))}
             </div>

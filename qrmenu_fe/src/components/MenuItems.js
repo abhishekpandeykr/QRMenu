@@ -2,6 +2,7 @@ import React from "react";
 import { Col, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { BiEdit } from "react-icons/bi";
+import { AiFillDelete } from "react-icons/ai";
 
 const Container = styled.div`
   border-radius: 5px;
@@ -22,7 +23,7 @@ const Container = styled.div`
   }
 `;
 
-const MenuItem = ({ item, onEdit }) => {
+const MenuItem = ({ item, onEdit, onDelete }) => {
   return (
     <Container active={item.is_available}>
       <Col xs={5} style={{ backgroundImage: `url(${item.image})` }} />
@@ -36,6 +37,11 @@ const MenuItem = ({ item, onEdit }) => {
               {onEdit && (
                 <Button variant="link" onClick={onEdit}>
                   <BiEdit size={25} />
+                </Button>
+              )}
+              {onDelete && (
+                <Button variant="link" onClick={onDelete}>
+                  <AiFillDelete size={25} color="red" />
                 </Button>
               )}
             </div>

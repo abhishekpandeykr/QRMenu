@@ -126,3 +126,7 @@ export function deleteCategory(id, token) {
 export function deleteMenuItem(id, token) {
   return request(`/api/menu-items/${id}`, { token, method: "DELETE" });
 }
+
+export function updatePlaces(id, data, token) {
+  return request(`/api/places/${id}`, { data, token, method: "PATCH" });
+}

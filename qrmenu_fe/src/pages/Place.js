@@ -10,6 +10,7 @@ import {
   deleteCategory,
   deleteMenuItem,
   deletePlace,
+  updatePlace,
 } from "../apis";
 import MenuItem from "../components/MenuItems";
 import MenuItemForm from "../containers/MenuItemForm";
@@ -75,6 +76,19 @@ export function Place() {
     const confirm = window.confirm("Are You Sure You want to Delete this?");
     if (confirm) {
       deleteMenuItem(menuItemId, auth.token).then(onFetchPlace);
+    }
+  };
+
+  const onUpdatePlace = async (tables) => {
+    const response = await updatePlace(
+      params.id,
+      { number_of_tables: tables },
+      auth.token
+    );
+    const body = await response;
+    console.log("body is", body);
+    if (body) {
+      setPlace(body);
     }
   };
 
@@ -154,6 +168,7 @@ export function Place() {
         show={qrCode}
         onHide={hideQRCodeModel}
         place={place}
+        onUpdatePlace={onUpdatePlace}
         centered
       />
     </MainLayout>

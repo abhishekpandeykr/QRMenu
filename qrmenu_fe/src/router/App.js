@@ -9,6 +9,7 @@ import { AuthProvider } from "../contexts/AuthContext";
 import PrivateRoute from "./PrivateRoute";
 import Register from "../pages/Register";
 import { Place } from "../pages/Place";
+import Menu from "../pages/Menu";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/menu/:id/:table" element={<Menu />} />
           <Route element={<PrivateRoute />}>
             <Route path="/places" element={<Places />} />
           </Route>

@@ -10,7 +10,7 @@ const Place = styled.div`
   }
 `;
 
-const MenuList = ({ place }) => {
+const MenuList = ({ place, shoppingCart, onOrder }) => {
   return (
     <>
       <Place>
@@ -22,7 +22,7 @@ const MenuList = ({ place }) => {
       {place?.categories
         ?.filter(
           (category) =>
-            category.menu_items.filter((item) => item.is_availlable).length
+            category.menu_items.filter((item) => item.is_available).length
         )
         .map((category) => (
           <div key={category.id} className="mt-5">
@@ -30,9 +30,17 @@ const MenuList = ({ place }) => {
               <b>{category.name}</b>
             </h4>
             {category.menu_items
-              .filter((item) => item.is_availlable)
+              .filter((item) => item.is_available)
               .map((item) => (
-                <MenuItem key={item.id} item={item} />
+                <MenuItem
+                  key={item.id}
+                  item={{
+                    ...item,
+                    quantity: shoppingCart[item.id]?.quantity,
+                  }}
+                  onOrder={onOrder}
+                  shoppingCart={shoppingCart}
+                />
               ))}
           </div>
         ))}

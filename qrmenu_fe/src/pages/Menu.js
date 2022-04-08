@@ -6,6 +6,7 @@ import MenuList from "../components/MenuList";
 
 const Menu = () => {
   const [place, setPlace] = useState({});
+  const [shoppingCart, setShoppingCart] = useState({});
   const params = useParams();
 
   const onFetchPlace = async () => {
@@ -20,11 +21,25 @@ const Menu = () => {
     onFetchPlace();
   }, []);
 
+  const onUpdateShoppingCart = (item) => {
+    setShoppingCart({
+      ...shoppingCart,
+      [item.id]: {
+        ...item,
+        quantity: (shoppingCart?.[item.id]?.quantity || 0) + 1,
+      },
+    });
+  };
+
   return (
     <Container className="mt-5 mb-5">
       <Row className="justify-content-center">
         <Col lg={8}>
-          <MenuList place={place} />
+          <MenuList
+            place={place}
+            shoppingCart={shoppingCart}
+            onOrder={onUpdateShoppingCart}
+          />
         </Col>
       </Row>
     </Container>

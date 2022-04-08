@@ -23,7 +23,8 @@ const Container = styled.div`
   }
 `;
 
-const MenuItem = ({ item, onEdit, onDelete }) => {
+const MenuItem = ({ item, onEdit, onDelete, shoppingCart, onOrder }) => {
+  console.log(shoppingCart);
   return (
     <Container active={item.is_available}>
       <Col xs={5} style={{ backgroundImage: `url(${item.image})` }} />
@@ -53,6 +54,13 @@ const MenuItem = ({ item, onEdit, onDelete }) => {
             <h5 className="mb-0 text-standard">
               <b>${item.price}</b>
             </h5>
+            {onOrder && (
+              <Button onClick={() => onOrder(item)}>
+                {!item.quantity
+                  ? "Add to cart"
+                  : `$Add One More ${item.quantity}`}
+              </Button>
+            )}
           </div>
           {!item.is_available ? (
             <small className="text-secondary">Not Available</small>

@@ -55,7 +55,7 @@ const MenuItem = ({ item, onEdit, onDelete, shoppingCart, onOrder }) => {
               <b>${item.price}</b>
             </h5>
             {onOrder && (
-              <Button onClick={() => onOrder(item)}>
+              <Button onClick={() => onOrder(item)} className="mt-2">
                 {!item.quantity
                   ? "Add to cart"
                   : `$Add One More ${item.quantity}`}

@@ -1,15 +1,8 @@
 import React from "react";
-import { Modal, Container, Row, Col, Button } from "react-bootstrap";
+import { Modal, Container, Row, Col } from "react-bootstrap";
 import styled from "styled-components";
+import OperationButton from "./OperationButton";
 import QRCode from "./QRCode";
-
-const OperationButton = styled(Button)`
-  width: 30px;
-  height: 30px;
-  margin: 0 10px;
-  font-size: 20px;
-  line-height: 18px;
-`;
 
 const QRCodeModel = ({ show, onHide, place, onUpdatePlace }) => {
   return (
@@ -22,14 +15,14 @@ const QRCodeModel = ({ show, onHide, place, onUpdatePlace }) => {
               Total Tables : <b>{place.number_of_tables}</b>
             </h5>
             <OperationButton
-              variant="lightgray"
+              variant="secondary"
               size="sm"
               onClick={() => onUpdatePlace(place.number_of_tables - 1)}
             >
               -
             </OperationButton>
             <OperationButton
-              variant="lightgray"
+              variant="secondary"
               size="sm"
               onClick={() => onUpdatePlace(place.number_of_tables + 1)}
             >

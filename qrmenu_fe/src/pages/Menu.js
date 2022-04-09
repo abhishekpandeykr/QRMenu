@@ -5,6 +5,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import styled from "styled-components";
 import { fetchPlaceById } from "../apis";
 import MenuList from "../components/MenuList";
+import ShoppingCart from "../components/ShoppingCart";
 
 const OrderButton = styled(Button)`
   position: fixed;
@@ -43,7 +44,6 @@ const Menu = () => {
   }, []);
 
   const onUpdateShoppingCart = (item) => {
-    console.log(item, "item is");
     setShoppingCart({
       ...shoppingCart,
       [item.id]: {
@@ -53,21 +53,45 @@ const Menu = () => {
     });
   };
 
+  const decrementItem = (item) => {
+    if (totalQuantity === 1) {
+      setShowShoppingCart(false);
+    }
+    setShoppingCart({
+      ...shoppingCart,
+      [item.id]: {
+        ...item,
+        quantity: shoppingCart?.[item.id]?.quantity - 1,
+      },
+    });
+  };
+
   return (
     <Container className="mt-5 mb-5">
       <Row className="justify-content-center">
         <Col lg={8}>
-          <MenuList
-            place={place}
-            shoppingCart={shoppingCart}
-            onOrder={onUpdateShoppingCart}
-          />
+          {showShoppingCart ? (
+            <ShoppingCart
+              decrementItem={decrementItem}
+              incrementItem={onUpdateShoppingCart}
+              items={Object.keys(shoppingCart)
+                .map((key) => shoppingCart[key])
+                .filter((item) => item.quantity > 0)}
+            />
+          ) : (
+            <MenuList
+              place={place}
+              shoppingCart={shoppingCart}
+              onOrder={onUpdateShoppingCart}
+            />
+          )}
         </Col>
       </Row>
       {totalQuantity && (
         <OrderButton
           variant="standard"
-          onClick={() => setShowShoppingCart(!shoppingCart)}
+          className="rotate"
+          onClick={() => setShowShoppingCart(!showShoppingCart)}
         >
           {showShoppingCart ? <IoCloseOutline size={30} /> : totalQuantity}
         </OrderButton>

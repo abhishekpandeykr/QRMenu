@@ -30,4 +30,6 @@ urlpatterns = [
 
     path('api/menu-items', view=views.MenuItemList.as_view()),
     path('api/menu-items/<pk>', view=views.MenuItemDetail.as_view()),
+
+    path('api/create_payment_intent', view=views.create_payment_intent),
 ]

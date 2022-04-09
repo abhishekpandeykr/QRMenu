@@ -2,6 +2,7 @@ from email.mime import image
 from unicodedata import name
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # Create your models here.
 
@@ -35,3 +36,22 @@ class MenuItem(models.Model):
 
     def __str__(self) -> str:
         return f"{self.category}/ {self.name}"
+
+
+class Order(models.Model):
+    PROCESSING_STATUS = "processing"
+    COMPLETED_STATUS = "completed"
+    STATUSES = (
+        (PROCESSING_STATUS, "Processing"),(COMPLETED_STATUS, "Completed")
+    )
+    place = models.ForeignKey(Place, on_delete=models.CASCADE)
+    table = models.CharField(max_length=2)
+    details = models.TextField(blank=True)
+    payment_intent = models.CharField(max_length=255)
+    amount = models.IntegerField()
+    status = models.CharField(max_length=20, choices=STATUSES, default=PROCESSING_STATUS)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self) -> str:
+        return f"{self.place}/ {self.table}/ {self.amount}"
+

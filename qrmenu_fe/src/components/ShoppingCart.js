@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { Card } from "react-bootstrap";
+import StripeContext from "../containers/PaymentForm";
 import OperationButton from "./OperationButton";
 
 const ShoppingCart = ({ items, decrementItem, incrementItem }) => {
@@ -52,6 +53,8 @@ const ShoppingCart = ({ items, decrementItem, incrementItem }) => {
               <b>${totalPrice}</b>
             </h5>
           </div>
+          <hr className="mb-4" />
+          <StripeContext />
         </Card.Body>
       </Card>
     </div>

@@ -3,7 +3,12 @@ import { Card } from "react-bootstrap";
 import StripeContext from "../containers/PaymentForm";
 import OperationButton from "./OperationButton";
 
-const ShoppingCart = ({ items, decrementItem, incrementItem }) => {
+const ShoppingCart = ({
+  items,
+  decrementItem,
+  incrementItem,
+  onPaymentDone,
+}) => {
   const totalPrice = useMemo(() => {
     return items.reduce((acc, item) => {
       return acc + item.price * item.quantity;
@@ -54,7 +59,11 @@ const ShoppingCart = ({ items, decrementItem, incrementItem }) => {
             </h5>
           </div>
           <hr className="mb-4" />
-          <StripeContext />
+          <StripeContext
+            amount={totalPrice}
+            onDone={onPaymentDone}
+            items={items}
+          />
         </Card.Body>
       </Card>
     </div>

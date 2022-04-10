@@ -79,7 +79,7 @@ const Menu = () => {
             <ShoppingCart
               decrementItem={decrementItem}
               incrementItem={onUpdateShoppingCart}
-              onDone={onPaymentDone}
+              onPaymentDone={onPaymentDone}
               items={Object.keys(shoppingCart)
                 .map((key) => shoppingCart[key])
                 .filter((item) => item.quantity > 0)}

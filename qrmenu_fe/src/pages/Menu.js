@@ -66,6 +66,11 @@ const Menu = () => {
     });
   };
 
+  const onPaymentDone = () => {
+    setShoppingCart({});
+    setShowShoppingCart(false);
+  };
+
   return (
     <Container className="mt-5 mb-5">
       <Row className="justify-content-center">
@@ -74,6 +79,7 @@ const Menu = () => {
             <ShoppingCart
               decrementItem={decrementItem}
               incrementItem={onUpdateShoppingCart}
+              onDone={onPaymentDone}
               items={Object.keys(shoppingCart)
                 .map((key) => shoppingCart[key])
                 .filter((item) => item.quantity > 0)}

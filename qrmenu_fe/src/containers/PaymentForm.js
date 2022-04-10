@@ -9,11 +9,16 @@ import {
 import { Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
+import { createPaymentIntet } from "../apis";
+import AuthContext from "../contexts/AuthContext";
 
-export const PaymentForm = () => {
+export const PaymentForm = ({ amount, items, onDone }) => {
   const [loading, setLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
+
+  const auth = useContext(AuthContext);
+  const params = useParams();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -26,6 +31,28 @@ export const PaymentForm = () => {
       type: "card",
       card: elements.getElement(CardElement),
     });
+
+    if (!error) {
+      setLoading(true);
+      const json = await createPaymentIntet(
+        {
+          payment_method: paymentMethod,
+          amount,
+          place: params.id,
+          table: params.table,
+          detail: items,
+        },
+        auth.token
+      );
+      if (json?.success) {
+        toast(`Your Order #${json.order} is Processing`, { type: "success" });
+        onDone();
+        setLoading(false);
+      } else if (json?.error) {
+        toast(json.error, { type: "error" });
+        setLoading(false);
+      }
+    }
   };
 
   return (

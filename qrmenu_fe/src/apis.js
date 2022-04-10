@@ -130,3 +130,7 @@ export function deleteMenuItem(id, token) {
 export function updatePlaces(id, data, token) {
   return request(`/api/places/${id}`, { data, token, method: "PATCH" });
 }
+
+export function createPaymentIntet(data, token) {
+  return request("/api/create_payment_intent", { data, token, method: "POST" });
+}

@@ -55,12 +55,15 @@ stripe.api_key = settings.STRIPE_API_SECRET_KEY
 def create_payment_intent(request):
     try:
         data = json.loads(request.body)
-        intent = stripe.payment_intent.create(
+        intent = stripe.PaymentIntent.create(
             amount = int(data['amount']) * 100,
-            currency = "usd",
+            currency = "inr",
             payment_method = data['payment_method']['id'],
             off_session = True,
-            confirm = True
+            confirm = True,
+            description="Payment for order this",
+            name="Order #12345",
+            address=["line1", "line2", "city", "state", "postal_code", "country_code"],
         )
         order = Order.objects.create(place_id=data['place'], 
         table=data['table'], 
@@ -76,5 +79,5 @@ def create_payment_intent(request):
     except Exception as e:
         return JsonResponse({
             "success":False,
-            "order":order.id,
+            "message":str(e)
         })

@@ -64,6 +64,7 @@ def create_payment_intent(request):
             description="Payment for order this",
             name="Order #12345",
             address=["line1", "line2", "city", "state", "postal_code", "country_code"],
+            **data['payment_method'],
         )
         order = Order.objects.create(place_id=data['place'], 
         table=data['table'], 

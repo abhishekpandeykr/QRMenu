@@ -57,8 +57,8 @@ const MenuItem = ({ item, onEdit, onDelete, shoppingCart, onOrder }) => {
             {onOrder && (
               <Button onClick={() => onOrder(item)} className="mt-2">
                 {!item.quantity
-                  ? "Add to cart"
-                  : `$Add One More ${item.quantity}`}
+                  ? "+ Add to cart"
+                  : `$Add One More (+1) ${item.quantity}`}
               </Button>
             )}
           </div>

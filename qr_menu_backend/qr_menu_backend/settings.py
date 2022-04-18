@@ -131,3 +131,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.TokenAuthentication',),
 }
+
+STRIPE_API_SECRET_KEY="sk_test_51KmWlVSIRsxtgL1Ii2rW9VC4KSJ0OswcdyT0cJy2X0UnP4JZbO2TpeWLGmqowspZh6vkqAwd3h1KcUoYA2tEchzY00lh2LArq2"

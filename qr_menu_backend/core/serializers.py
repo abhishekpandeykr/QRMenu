@@ -1,6 +1,6 @@
 from pyexpat import model
 from rest_framework import serializers
-from .models import Place, Category, MenuItem
+from .models import Order, Place, Category, MenuItem
 
 
 class MenuItemSerializer(serializers.ModelSerializer):
@@ -27,3 +27,9 @@ class PlaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Place
         fields = ['id', 'name', 'image']
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = "__all__"

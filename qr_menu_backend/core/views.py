@@ -5,8 +5,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import  settings
 from django.shortcuts import render
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
-from .serializers import CategorySerializer, MenuItemSerializer, PlaceSerializer, PlaceDetailSerializer
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView, ListAPIView
+from .serializers import CategorySerializer, MenuItemSerializer, OrderSerializer, PlaceSerializer, PlaceDetailSerializer
 from .models import Category, Place, MenuItem, Order
 from .permissions import IsOwnerOrReadOnly, IsPlaceOwnerOrReadOnly
 
@@ -79,3 +79,19 @@ def create_payment_intent(request):
             "success":False,
             "message":str(e)
         })
+
+
+class OrderList(ListAPIView):
+    serializer_class = OrderSerializer
+
+    def get_queryset(self):
+        return Order.objects.filter(place__owner_id=self.request.user.id, place_id=self.kwargs['pk'])
+    
+
+class OrderDetail(UpdateAPIView):
+    permission_classes = [IsPlaceOwnerOrReadOnly]
+    def get_serializer_class(self):
+        print("Self", self.request.method)
+        return OrderSerializer
+
+    queryset = Order.objects.all()

@@ -10,6 +10,7 @@ import PrivateRoute from "./PrivateRoute";
 import Register from "../pages/Register";
 import { Place } from "../pages/Place";
 import Menu from "../pages/Menu";
+import Orders from "../pages/Orders";
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
           </Route>
           <Route element={<PrivateRoute />}>
             <Route path="/places/:id" element={<Place />} />
+          </Route>
+          <Route element={<PrivateRoute />}>
+            <Route path="/places/:id/orders" element={<Orders />} />
           </Route>
         </Routes>
       </BrowserRouter>

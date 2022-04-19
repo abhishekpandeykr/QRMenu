@@ -44,7 +44,7 @@ function request(path, { data = null, token = null, method = "GET" }) {
     })
     .then((jsonRes) => {
       //   call api successfully
-      toast(JSON.stringify(jsonRes), { type: "success" });
+      // toast(JSON.stringify(jsonRes), { type: "success" });
       return jsonRes;
     })
     .catch((err) => {
@@ -133,4 +133,8 @@ export function updatePlaces(id, data, token) {
 
 export function createPaymentIntet(data, token) {
   return request("/api/create_payment_intent", { data, token, method: "POST" });
+}
+
+export function fetchOrders(placeId, token) {
+  return request(`/api/orders/place=${placeId}`, { token });
 }

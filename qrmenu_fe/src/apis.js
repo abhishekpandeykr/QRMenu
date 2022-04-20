@@ -138,3 +138,7 @@ export function createPaymentIntet(data, token) {
 export function fetchOrders(placeId, token) {
   return request(`/api/orders/place=${placeId}`, { token });
 }
+
+export function updateOrder(id, data, token) {
+  return request(`/api/update-order/${id}`, { data, token, method: "PATCH" });
+}

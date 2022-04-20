@@ -33,6 +33,6 @@ urlpatterns = [
 
     path('api/create_payment_intent', view=views.create_payment_intent),
 
-    # path('api/orders/<pk>', view=views.OrderDetail.as_view()),
+    path('api/update-order/<pk>', view=views.OrderDetail.as_view()),
     path('api/orders/place=<pk>', view=views.OrderList.as_view()),
 ]

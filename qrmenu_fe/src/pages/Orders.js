@@ -6,6 +6,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { fetchOrders } from "../apis";
 import AuthContext from "../contexts/AuthContext";
 import MainLayout from "../layout/MainLayout";
+import Order from "../components/Order";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -24,6 +25,8 @@ const Orders = () => {
       }
     };
     onFetchOrders();
+    const interval = setInterval(onFetchOrders, 10000);
+    return () => clearInterval(interval);
   }, [auth.token, params.id]);
 
   return (
@@ -37,7 +40,7 @@ const Orders = () => {
       <Row className="justify-content-center">
         {orders?.map((order) => (
           <Col key={order.id} lg={8}>
-            {order.detail}
+            <Order order={order} />
           </Col>
         ))}
       </Row>

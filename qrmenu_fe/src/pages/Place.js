@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Row, Col, Button, Modal } from "react-bootstrap";
 import { IoMdArrowBack } from "react-icons/io";
 import { AiOutlineQrcode, AiOutlineDelete } from "react-icons/ai";
+import { RiFileList3Line } from "react-icons/ri";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -94,6 +95,7 @@ export function Place() {
 
   useEffect(() => {
     onFetchPlace();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -112,6 +114,9 @@ export function Place() {
             </div>
             <Button variant="link" onClick={showQRCodeModel}>
               <AiOutlineQrcode size={35} color="black" />
+            </Button>
+            <Button variant="link" href={`/places/${params.id}/orders`}>
+              <RiFileList3Line size={35} color="black" />
             </Button>
           </div>
         </Col>

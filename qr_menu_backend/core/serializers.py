@@ -20,7 +20,7 @@ class PlaceDetailSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True, read_only=True)
     class Meta:
         model = Place
-        fields = ['id', 'name', 'image', 'number_of_tables', 'categories']
+        fields = ['id', 'name', 'image', 'number_of_tables', 'categories', 'font', 'color']
 
 
 class PlaceSerializer(serializers.ModelSerializer):

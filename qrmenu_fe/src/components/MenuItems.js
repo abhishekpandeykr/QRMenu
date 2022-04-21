@@ -23,7 +23,7 @@ const Container = styled.div`
   }
 `;
 
-const MenuItem = ({ item, onEdit, onDelete, shoppingCart, onOrder }) => {
+const MenuItem = ({ item, onEdit, onDelete, shoppingCart, onOrder, color }) => {
   console.log(shoppingCart);
   return (
     <Container active={item.is_available}>
@@ -52,10 +52,14 @@ const MenuItem = ({ item, onEdit, onDelete, shoppingCart, onOrder }) => {
         <div className="d-flex justify-content-between align-items-end">
           <div>
             <h5 className="mb-0 text-standard">
-              <b>${item.price}</b>
+              <b style={{ color: color }}>${item.price}</b>
             </h5>
             {onOrder && (
-              <Button onClick={() => onOrder(item)} className="mt-2">
+              <Button
+                onClick={() => onOrder(item)}
+                className="mt-2"
+                style={{ backgroundColor: color }}
+              >
                 {!item.quantity
                   ? "+ Add to cart"
                   : `$Add One More (+1) ${item.quantity}`}

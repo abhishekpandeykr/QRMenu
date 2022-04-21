@@ -8,6 +8,7 @@ const ShoppingCart = ({
   decrementItem,
   incrementItem,
   onPaymentDone,
+  color,
 }) => {
   const totalPrice = useMemo(() => {
     return items.reduce((acc, item) => {
@@ -63,6 +64,7 @@ const ShoppingCart = ({
             amount={totalPrice}
             onDone={onPaymentDone}
             items={items}
+            color={color}
           />
         </Card.Body>
       </Card>

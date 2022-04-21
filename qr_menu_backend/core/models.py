@@ -1,4 +1,5 @@
 from email.mime import image
+from turtle import color
 from unicodedata import name
 from django.db import models
 from django.contrib.auth.models import User
@@ -11,6 +12,8 @@ class Place(models.Model):
     name = models.CharField(max_length=255)
     image = models.CharField(max_length=255)
     number_of_tables = models.IntegerField(default=1)
+    font = models.CharField(max_length=100, blank=True)
+    color = models.CharField(max_length=100, blank=True)
 
     def __str__(self) -> str:
         return f"{self.owner.username}/ {self.name}"

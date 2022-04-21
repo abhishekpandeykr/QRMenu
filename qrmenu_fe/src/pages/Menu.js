@@ -83,12 +83,15 @@ const Menu = () => {
               items={Object.keys(shoppingCart)
                 .map((key) => shoppingCart[key])
                 .filter((item) => item.quantity > 0)}
+              color={place.color}
             />
           ) : (
             <MenuList
               place={place}
               shoppingCart={shoppingCart}
               onOrder={onUpdateShoppingCart}
+              color={place.color}
+              font={place.font}
             />
           )}
         </Col>
@@ -98,6 +101,7 @@ const Menu = () => {
           variant="standard"
           className="rotate"
           onClick={() => setShowShoppingCart(!showShoppingCart)}
+          style={{ backgroundColor: place.color }}
         >
           {showShoppingCart ? <IoCloseOutline size={30} /> : totalQuantity}
         </OrderButton>

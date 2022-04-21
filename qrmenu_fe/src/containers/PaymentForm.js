@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 import { createPaymentIntet } from "../apis";
 import AuthContext from "../contexts/AuthContext";
 
-export const PaymentForm = ({ amount, items, onDone }) => {
+export const PaymentForm = ({ amount, items, onDone, color }) => {
   const [loading, setLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
@@ -63,6 +63,7 @@ export const PaymentForm = ({ amount, items, onDone }) => {
         type="submit"
         disabled={loading}
         className="mt-4"
+        style={{ backgroundColor: color }}
       >
         {loading ? "Processing..." : "Pay"}
       </Button>

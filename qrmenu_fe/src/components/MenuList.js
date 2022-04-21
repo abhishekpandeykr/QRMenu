@@ -10,9 +10,16 @@ const Place = styled.div`
   }
 `;
 
-const MenuList = ({ place, shoppingCart, onOrder }) => {
+const Container = styled.div`
+  b,
+  p {
+    ${({ font }) => font && `font-family: ${font};`}
+  }
+`;
+
+const MenuList = ({ place, shoppingCart, onOrder, font = "", color = "" }) => {
   return (
-    <>
+    <Container font={font}>
       <Place>
         <img src={place.image} width={100} height={100} alt="Menu" />
         <h3>
@@ -40,11 +47,12 @@ const MenuList = ({ place, shoppingCart, onOrder }) => {
                   }}
                   onOrder={onOrder}
                   shoppingCart={shoppingCart}
+                  color={color}
                 />
               ))}
           </div>
         ))}
-    </>
+    </Container>
   );
 };
 

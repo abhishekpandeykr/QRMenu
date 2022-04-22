@@ -112,6 +112,7 @@ export function updateMenuItem(id, data, token) {
 }
 
 export function updatePlace(id, data, token) {
+  console.log(data, id, token);
   return request(`/api/places/${id}`, { data, token, method: "PATCH" });
 }
 

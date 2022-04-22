@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Row, Col, Button, Modal } from "react-bootstrap";
 import { IoMdArrowBack } from "react-icons/io";
+import { FiSettings } from "react-icons/fi";
 import { AiOutlineQrcode, AiOutlineDelete } from "react-icons/ai";
 import { RiFileList3Line } from "react-icons/ri";
 import { useParams, useNavigate } from "react-router-dom";
@@ -117,6 +118,9 @@ export function Place() {
             </Button>
             <Button variant="link" href={`/places/${params.id}/orders`}>
               <RiFileList3Line size={35} color="black" />
+            </Button>
+            <Button variant="link" href={`/places/${params.id}/settings`}>
+              <FiSettings size={35} color="black" />
             </Button>
           </div>
         </Col>

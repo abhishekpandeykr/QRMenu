@@ -17,7 +17,13 @@ const Container = styled.div`
   }
 `;
 
-const MenuList = ({ place, shoppingCart, onOrder, font = "", color = "" }) => {
+const MenuList = ({
+  place,
+  shoppingCart = {},
+  onOrder,
+  font = "",
+  color = "",
+}) => {
   return (
     <Container font={font}>
       <Place>
